@@ -1,15 +1,5 @@
 const PersonModel = require('./model/Person');
 const PersonValidation = require('./validation/Person');
-// const Hapi = require('@hapi/hapi');
-// const Joi = require('joi');
-// const Mongoose = require("mongoose");
-// const Inert = require('@hapi/inert');
-// const Vision = require('@hapi/vision');
-// const HapiSwagger = require('hapi-swagger');
-// const Pack = require('./package');
-// const Schema = Mongoose.Schema;
-// const PersonModel = require('./model/Person');
-// const PersonValidation = require('./validation/Person');
 
 
 const routes = [
