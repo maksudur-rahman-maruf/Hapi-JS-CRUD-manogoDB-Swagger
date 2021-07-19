@@ -3,8 +3,8 @@ const PersonModel = require('../model/Person');
 const createPersonService = async (request) => {
     try {
         let person = new PersonModel(request.payload);
-        let result = await person.save();
-        return result;
+        return await person.save();
+       
     } catch (error) {
         return h.response(error).code(500);
     }
@@ -13,8 +13,7 @@ const createPersonService = async (request) => {
 
 const getPersonListService = async (request) => {
     try {
-        let persons = await PersonModel.find().exec();
-        return persons;
+        return await PersonModel.find().exec();
     } catch (error) {
         return h.response(error).code(500);
     }
@@ -23,8 +22,7 @@ const getPersonListService = async (request) => {
 
 const getPersonService = async (request) => {
     try {
-        let person = await PersonModel.findById(request.params.id).exec();
-        return person;
+        return await PersonModel.findById(request.params.id).exec();
     } catch (error) {
         return h.response({
             "statusCode": 500,
@@ -37,8 +35,7 @@ const getPersonService = async (request) => {
 
 const updatePersonService = async (request) => {
     try {
-        let person = await PersonModel.findByIdAndUpdate(request.params.id, request.payload, { new: true });
-        return person;
+        return await PersonModel.findByIdAndUpdate(request.params.id, request.payload, { new: true });
     } catch (error) {
         return h.response(error).code(500);
     }
@@ -47,8 +44,7 @@ const updatePersonService = async (request) => {
 
 const deletePersonService = async (request) => {
     try {
-        var person = await PersonModel.findByIdAndDelete(request.params.id);
-        return person;
+        return await PersonModel.findByIdAndDelete(request.params.id);
     } catch (error) {
         return h.response(error).code(500);
     }
