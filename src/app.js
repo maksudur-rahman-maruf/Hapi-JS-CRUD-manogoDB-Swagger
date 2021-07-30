@@ -4,14 +4,17 @@ const Inert = require('@hapi/inert');
 const Vision = require('@hapi/vision');
 const Pack = require('../package');
 const HapiSwagger = require('hapi-swagger');
+const cors = require('cors');
 const routes = require('./route/Person');
 
 
 (async () => {
     const server = await new Hapi.Server({
         "host": "localhost",
-        "port": 3000
+        "port": 3001,
+        "routes": { cors: true }
     });
+    
 
     Mongoose.connect("mongodb://localhost/myhapidb", { useUnifiedTopology: true, useNewUrlParser: true });
 
@@ -32,8 +35,19 @@ const routes = require('./route/Person');
         }
     ]);
 
+    // server.connection({ routes: { cors: true } });
 
     server.route(routes);
+
+    
+
+    // server.route({
+    //     config: {
+    //         cors: {
+    //             origin: ['*'],
+    //             additionalHeaders: ['cache-control', 'x-requested-with']
+    //         }
+    //     },
 
     server.start();
 
