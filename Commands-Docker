@@ -18,9 +18,7 @@ Using Docker Compose
 [
 
 // Building image
-docker-compose build -t docker-compose-express-app
-
-docker-compose build -t docker-compose-react-app
+docker-compose build
 
 // Run
 docker-compose up
