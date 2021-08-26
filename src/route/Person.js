@@ -1,6 +1,7 @@
 const PersonModel = require('../model/Person');
 const PersonValidation = require('../validation/Person');
 const PersonHandler = require('../handler/Person');
+const Joi = require('joi');
 
 
 const routes = [
@@ -17,6 +18,52 @@ const routes = [
             handler: PersonHandler.createPerson
         }
         
+    },
+    
+
+    {
+        method: 'POST',
+        path: '/submit',
+        options: {
+            description: 'File Subimitting ',
+            notes: 'Submit a file',
+            tags: ['api'],
+            validate: {
+                payload: Joi.object({
+                    file: Joi.any()
+                        .meta({ swaggerType: 'file' })
+                        .description('csv file')
+                })
+            },
+            payload: {
+                output: 'stream',
+                parse: true,
+                // allow: 'multipart/form-data'
+                multipart: true,
+                maxBytes: 1024 * 1024 * 100,
+                
+            },
+    
+            handler: (request, h) => {
+    
+                const data = request.payload;
+                if (data.file) {
+                    console.log(data.file._data.toString())
+                }
+                return data.file._data.toString();
+        
+            },
+    
+            plugins: {
+                'hapi-swagger': {
+                  payloadType: 'form',
+                  responseMessages: [
+                    { 'code': 500, 'message': 'Internal Server Error'}
+                  ]
+                }
+            },
+    
+        }
     },
 
 
